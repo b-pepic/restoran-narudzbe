@@ -1,6 +1,6 @@
 @RestoranNarudzbe_HostAddress = http://localhost:5036
 
-GET {{RestoranNarudzbe_HostAddress}}/weatherforecast/
+
 Accept: application/json
 
 ###
