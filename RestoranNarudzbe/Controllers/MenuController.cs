@@ -26,4 +26,13 @@ public class MenuController : ControllerBase
     {
         return Ok(_menu);
     }
+
+    [HttpGet("{id}")]
+    public ActionResult<MenuItem> GetById(int id)
+    {
+        var item = _menu.FirstOrDefault(x => x.Id == id);
+        if (item is null) 
+            return NotFound();
+        return Ok(item);
+    }
 }
