@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestoranNarudzbe.Dtos;
 using RestoranNarudzbe.Models;
 
 namespace RestoranNarudzbe.Controllers;
@@ -31,8 +32,23 @@ public class MenuController : ControllerBase
     public ActionResult<MenuItem> GetById(int id)
     {
         var item = _menu.FirstOrDefault(x => x.Id == id);
-        if (item is null) 
+        if (item is null)
             return NotFound();
         return Ok(item);
+    }
+
+    [HttpPost]
+    public ActionResult<MenuItem> Create(CreateMenuItemRequest request)
+    {
+        var newId = _menu.Count == 0 ? 1 : _menu.Max(x => x.Id) + 1;
+        var newMenuItem = new MenuItem
+        {
+            Id = newId,
+            Name = request.Name,
+            Price = request.Price,
+            Category = request.Category
+        };
+        _menu.Add(newMenuItem);
+        return CreatedAtAction(nameof(GetById), new { id = newMenuItem.Id }, newMenuItem);
     }
 }
