@@ -9,6 +9,18 @@ namespace RestoranNarudzbe.Controllers;
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
 {
+    [HttpGet]
+    public ActionResult<IEnumerable<Order>> GetAll(OrderStatus? status)
+    {
+        IEnumerable<Order> orders = InMemoryStore.Orders;
+        if (status is not null)
+        {
+            orders = orders.Where(x => x.Status == status);
+        }
+        orders = orders.OrderBy(x => x.CreatedAt);
+        return Ok(orders);
+    }
+
     [HttpGet("{id}")]
     public ActionResult<Order> GetById(int id)
     {
@@ -51,5 +63,20 @@ public class OrdersController : ControllerBase
         };
         InMemoryStore.Orders.Add(newOrder);
         return CreatedAtAction(nameof(GetById), new { id = newId }, newOrder);
+    }
+
+    [HttpPatch("{id}/status")]
+    public ActionResult<Order> UpdateStatus(int id, UpdateOrderStatusRequest request)
+    {
+        var order = InMemoryStore.Orders.FirstOrDefault(x => x.Id == id);
+
+        if (order is null)
+        {
+            return NotFound();
+        }
+
+        order.Status = request.Status!.Value;
+
+        return Ok(order);
     }
 }
