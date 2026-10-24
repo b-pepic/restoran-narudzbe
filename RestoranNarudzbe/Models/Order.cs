@@ -3,7 +3,7 @@
 public class Order
 {
     public int Id { get; set; }
-    public int TableId { get ; set; }
+    public int TableId { get; set; }
     public Table Table { get; set; } = null!;
     public OrderStatus Status { get; set; } = OrderStatus.New;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
