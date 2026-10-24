@@ -57,7 +57,7 @@ public class OrdersController : ControllerBase
         var newOrder = new Order
         {
             Id = newId,
-            TableNumber = request.TableNumber,
+            TableId = request.TableNumber, // TODO faza 2, korak 6: naci stol po broju u bazi
             CreatedAt = DateTime.UtcNow,
             Items = orderItems
         };
@@ -76,7 +76,7 @@ public class OrdersController : ControllerBase
         }
 
         order.Status = request.Status!.Value;
-
+        order.UpdatedAt = DateTime.UtcNow;
         return Ok(order);
     }
 }
