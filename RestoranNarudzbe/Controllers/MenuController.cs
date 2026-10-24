@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RestoranNarudzbe.Data;
 using RestoranNarudzbe.Dtos;
 using RestoranNarudzbe.Models;
@@ -9,33 +10,44 @@ namespace RestoranNarudzbe.Controllers;
 [Route("api/[controller]")]
 public class MenuController : ControllerBase
 {
-    [HttpGet]
-    public ActionResult<IEnumerable<MenuItem>> GetAll()
+    private readonly AppDbContext _db;
+
+    public MenuController(AppDbContext db)
     {
-        return Ok(InMemoryStore.MenuItems);
+        _db = db;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<MenuItem>>> GetAll()
+    {
+        var items = await _db.MenuItems
+            .OrderBy(x => x.Id)
+            .ToListAsync();
+        return Ok(items);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<MenuItem> GetById(int id)
+    public async Task<ActionResult<MenuItem>> GetById(int id)
     {
-        var item = InMemoryStore.MenuItems.FirstOrDefault(x => x.Id == id);
+        var item = await _db.MenuItems.FindAsync(id);
         if (item is null)
             return NotFound();
         return Ok(item);
     }
 
     [HttpPost]
-    public ActionResult<MenuItem> Create(CreateMenuItemRequest request)
+    public async Task<ActionResult<MenuItem>> Create(CreateMenuItemRequest request)
     {
-        var newId = InMemoryStore.MenuItems.Count == 0 ? 1 : InMemoryStore.MenuItems.Max(x => x.Id) + 1;
         var newMenuItem = new MenuItem
         {
-            Id = newId,
             Name = request.Name,
             Price = request.Price,
             Category = request.Category
         };
-        InMemoryStore.MenuItems.Add(newMenuItem);
+
+        _db.MenuItems.Add(newMenuItem);
+        await _db.SaveChangesAsync();
+
         return CreatedAtAction(nameof(GetById), new { id = newMenuItem.Id }, newMenuItem);
     }
 }
