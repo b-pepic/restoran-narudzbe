@@ -54,19 +54,46 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Order> Create(CreateOrderRequest request)
+    public async Task<ActionResult<OrderResponse>> Create(CreateOrderRequest request)
     {
-        List<OrderItem> orderItems = new();
+        var table = await _db.Tables
+            .FirstOrDefaultAsync(x => x.Number == request.TableNumber);
+
+        if (table is null)
+        {
+            ModelState.AddModelError(nameof(request.TableNumber), $"Table {request.TableNumber} does not exist.");
+            return ValidationProblem(ModelState);
+        }
+
+        var menuItemIds = request.Items
+            .Select(x => x.MenuItemId)
+            .Distinct()
+            .ToList();
+
+        var menuItems = await _db.MenuItems
+            .Where(x => menuItemIds.Contains(x.Id))
+            .ToDictionaryAsync(x => x.Id);
+
+        var order = new Order
+        {
+            Table = table
+        };
 
         foreach (var itemRequest in request.Items)
         {
-            var menuItem = InMemoryStore.MenuItems.FirstOrDefault(x => x.Id == itemRequest.MenuItemId);
-            if (menuItem is null)
+            if (!menuItems.TryGetValue(itemRequest.MenuItemId, out var menuItem))
             {
                 ModelState.AddModelError(nameof(request.Items), $"Menu item {itemRequest.MenuItemId} does not exist.");
                 return ValidationProblem(ModelState);
             }
-            orderItems.Add(new OrderItem
+
+            if (!menuItem.IsAvailable)
+            {
+                ModelState.AddModelError(nameof(request.Items), $"Menu item '{menuItem.Name}' is not available.");
+                return ValidationProblem(ModelState);
+            }
+
+            order.Items.Add(new OrderItem
             {
                 MenuItemId = itemRequest.MenuItemId,
                 Quantity = itemRequest.Quantity,
@@ -76,16 +103,10 @@ public class OrdersController : ControllerBase
             });
         }
 
-        var newId = InMemoryStore.Orders.Count == 0 ? 1 : InMemoryStore.Orders.Max(x => x.Id) + 1;
-        var newOrder = new Order
-        {
-            Id = newId,
-            TableId = request.TableNumber, // TODO faza 2, korak 6: naci stol po broju u bazi
-            CreatedAt = DateTime.UtcNow,
-            Items = orderItems
-        };
-        InMemoryStore.Orders.Add(newOrder);
-        return CreatedAtAction(nameof(GetById), new { id = newId }, newOrder);
+        _db.Orders.Add(order);
+        await _db.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetById), new { id = order.Id }, OrderResponse.FromOrder(order));
     }
 
     [HttpPatch("{id}/status")]
