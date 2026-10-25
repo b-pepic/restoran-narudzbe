@@ -18,15 +18,24 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Order>> GetAll(OrderStatus? status)
+    public async Task<ActionResult<IEnumerable<OrderResponse>>> GetAll(OrderStatus? status)
     {
-        IEnumerable<Order> orders = InMemoryStore.Orders;
+        IQueryable<Order> query = _db.Orders
+            .Include(x => x.Items)
+            .Include(x => x.Table);
+
         if (status is not null)
         {
-            orders = orders.Where(x => x.Status == status);
+            query = query.Where(x => x.Status == status);
         }
-        orders = orders.OrderBy(x => x.CreatedAt);
-        return Ok(orders);
+
+        query = query.OrderBy(x => x.CreatedAt);
+        var orders = await query.ToListAsync();
+
+        var ordersResponse = orders.Select(x => OrderResponse.FromOrder(x))
+            .ToList();
+
+        return Ok(ordersResponse);
     }
 
     [HttpGet("{id}")]
