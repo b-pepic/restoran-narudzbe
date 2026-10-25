@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RestoranNarudzbe.Data;
 using RestoranNarudzbe.Dtos;
 using RestoranNarudzbe.Models;
@@ -9,6 +10,13 @@ namespace RestoranNarudzbe.Controllers;
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
 {
+    private readonly AppDbContext _db;
+
+    public OrdersController(AppDbContext db)
+    {
+        _db = db;
+    }
+
     [HttpGet]
     public ActionResult<IEnumerable<Order>> GetAll(OrderStatus? status)
     {
@@ -22,12 +30,18 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Order> GetById(int id)
+    public async Task<ActionResult<OrderResponse>> GetById(int id)
     {
-        var item = InMemoryStore.Orders.FirstOrDefault(x => x.Id == id);
-        if (item is null)
+        var order = await _db.Orders
+            .Include(x => x.Table)
+            .Include(x => x.Items)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (order is null)
             return NotFound();
-        return Ok(item);
+
+        var orderResponse = OrderResponse.FromOrder(order);
+        return Ok(orderResponse);
     }
 
     [HttpPost]
