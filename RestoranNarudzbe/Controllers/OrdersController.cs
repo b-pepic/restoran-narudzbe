@@ -21,8 +21,8 @@ public class OrdersController : ControllerBase
     public async Task<ActionResult<IEnumerable<OrderResponse>>> GetAll(OrderStatus? status)
     {
         IQueryable<Order> query = _db.Orders
-            .Include(x => x.Items)
-            .Include(x => x.Table);
+            .Include(x => x.Table)
+            .Include(x => x.Items);
 
         if (status is not null)
         {
@@ -110,9 +110,12 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPatch("{id}/status")]
-    public ActionResult<Order> UpdateStatus(int id, UpdateOrderStatusRequest request)
+    public async Task<ActionResult<OrderResponse>> UpdateStatus(int id, UpdateOrderStatusRequest request)
     {
-        var order = InMemoryStore.Orders.FirstOrDefault(x => x.Id == id);
+        var order = await _db.Orders
+            .Include(x => x.Table)
+            .Include(x => x.Items)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         if (order is null)
         {
@@ -121,6 +124,8 @@ public class OrdersController : ControllerBase
 
         order.Status = request.Status!.Value;
         order.UpdatedAt = DateTime.UtcNow;
-        return Ok(order);
+        await _db.SaveChangesAsync();
+
+        return Ok(OrderResponse.FromOrder(order));
     }
 }
