@@ -23,6 +23,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
+        .UseSnakeCaseNamingConvention()
         .UseSeeding(SeedData.Seed));
 
 var app = builder.Build();

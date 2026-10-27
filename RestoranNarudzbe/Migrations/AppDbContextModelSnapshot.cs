@@ -26,112 +26,140 @@ namespace RestoranNarudzbe.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("category");
 
                     b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_available");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_menu_items");
 
-                    b.ToTable("MenuItems");
+                    b.ToTable("menu_items", (string)null);
                 });
 
             modelBuilder.Entity("RestoranNarudzbe.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.Property<int>("TableId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("table_id");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_orders");
 
-                    b.HasIndex("TableId");
+                    b.HasIndex("TableId")
+                        .HasDatabaseName("ix_orders_table_id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("RestoranNarudzbe.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("MenuItemId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("menu_item_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<string>("Note")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("note");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("unit_price");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_order_items");
 
-                    b.HasIndex("MenuItemId");
+                    b.HasIndex("MenuItemId")
+                        .HasDatabaseName("ix_order_items_menu_item_id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId")
+                        .HasDatabaseName("ix_order_items_order_id");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("order_items", (string)null);
                 });
 
             modelBuilder.Entity("RestoranNarudzbe.Models.Table", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Number")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("number");
 
                     b.Property<int>("Seats")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("seats");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_tables");
 
                     b.HasIndex("Number")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("ix_tables_number");
 
-                    b.ToTable("Tables");
+                    b.ToTable("tables", (string)null);
                 });
 
             modelBuilder.Entity("RestoranNarudzbe.Models.Order", b =>
@@ -140,7 +168,8 @@ namespace RestoranNarudzbe.Migrations
                         .WithMany()
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_orders_tables_table_id");
 
                     b.Navigation("Table");
                 });
@@ -151,13 +180,15 @@ namespace RestoranNarudzbe.Migrations
                         .WithMany()
                         .HasForeignKey("MenuItemId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_order_items_menu_items_menu_item_id");
 
                     b.HasOne("RestoranNarudzbe.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_order_items_orders_order_id");
 
                     b.Navigation("MenuItem");
 
