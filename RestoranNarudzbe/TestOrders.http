@@ -1,0 +1,162 @@
+@host = http://localhost:5036
+
+### Provjera: id 64 mora biti Margherita, a 138 Pan (0,5 l)
+GET {{host}}/api/menu/64
+
+###
+GET {{host}}/api/menu/138
+
+### Narudzba 1: stol 3
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 3,
+  "items": [
+    { "menuItemId": 64, "quantity": 2 },
+    { "menuItemId": 66, "quantity": 1 },
+    { "menuItemId": 138, "quantity": 3 }
+  ]
+}
+
+### Narudzba 2: stol 1
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 1,
+  "items": [
+    { "menuItemId": 48, "quantity": 2 },
+    { "menuItemId": 79, "quantity": 2 },
+    { "menuItemId": 148, "quantity": 2 }
+  ]
+}
+
+### Narudzba 3: stol 5
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 5,
+  "items": [
+    { "menuItemId": 1, "quantity": 1 },
+    { "menuItemId": 55, "quantity": 2, "note": "medium" },
+    { "menuItemId": 119, "quantity": 1 },
+    { "menuItemId": 151, "quantity": 2 }
+  ]
+}
+
+### Narudzba 4: stol 3
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 3,
+  "items": [
+    { "menuItemId": 115, "quantity": 2 },
+    { "menuItemId": 105, "quantity": 1 },
+    { "menuItemId": 103, "quantity": 1 }
+  ]
+}
+
+### Narudzba 5: stol 7
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 7,
+  "items": [
+    { "menuItemId": 14, "quantity": 1 },
+    { "menuItemId": 37, "quantity": 2 },
+    { "menuItemId": 43, "quantity": 1 },
+    { "menuItemId": 97, "quantity": 1 },
+    { "menuItemId": 138, "quantity": 2 }
+  ]
+}
+
+### Narudzba 6: stol 2
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 2,
+  "items": [
+    { "menuItemId": 23, "quantity": 1 },
+    { "menuItemId": 31, "quantity": 1 },
+    { "menuItemId": 136, "quantity": 1 },
+    { "menuItemId": 123, "quantity": 1 }
+  ]
+}
+
+### Narudzba 7: stol 3
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 3,
+  "items": [
+    { "menuItemId": 64, "quantity": 3, "note": "jedna bez maslina" },
+    { "menuItemId": 76, "quantity": 1 },
+    { "menuItemId": 138, "quantity": 4 }
+  ]
+}
+
+### Narudzba 8: stol 6
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 6,
+  "items": [
+    { "menuItemId": 109, "quantity": 4 },
+    { "menuItemId": 155, "quantity": 2 }
+  ]
+}
+
+### Narudzba 9: stol 8
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 8,
+  "items": [
+    { "menuItemId": 53, "quantity": 2 },
+    { "menuItemId": 85, "quantity": 1 },
+    { "menuItemId": 48, "quantity": 2 },
+    { "menuItemId": 148, "quantity": 3 }
+  ]
+}
+
+### Narudzba 10: stol 4
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "tableNumber": 4,
+  "items": [
+    { "menuItemId": 3, "quantity": 1 },
+    { "menuItemId": 2, "quantity": 1 },
+    { "menuItemId": 151, "quantity": 2 }
+  ]
+}
+
+### Status: narudzba 1 je posluzena
+PATCH {{host}}/api/orders/1/status
+Content-Type: application/json
+
+{ "status": "Served" }
+
+### Status: narudzba 2 je spremna
+PATCH {{host}}/api/orders/2/status
+Content-Type: application/json
+
+{ "status": "Ready" }
+
+### Status: narudzba 3 se priprema
+PATCH {{host}}/api/orders/3/status
+Content-Type: application/json
+
+{ "status": "InProgress" }
+
+### Provjera: sve narudzbe
+GET {{host}}/api/orders
