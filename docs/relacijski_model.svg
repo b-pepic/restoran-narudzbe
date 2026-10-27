@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="582" viewBox="0 0 1440 582" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="1440" height="582" fill="#ffffff"/>
+<text x="40" y="38" font-size="20" font-weight="600" fill="#3d3d3a">Relacijski model baze restoran</text>
+<line x1="290" y1="140.0" x2="350.0" y2="140.0" stroke="#3d3d3a" stroke-width="1.6" stroke-dasharray="7 5"/>
+<line x1="350.0" y1="140.0" x2="410" y2="140.0" stroke="#3d3d3a" stroke-width="1.6"/>
+<text x="298" y="132.0" font-size="15" font-weight="600" fill="#3d3d3a">1</text>
+<text x="402" y="132.0" font-size="15" font-weight="600" fill="#3d3d3a" text-anchor="end">n</text>
+<text x="350.0" y="162.0" font-size="13" fill="#73726c" text-anchor="middle" font-style="italic">ima</text>
+<line x1="660" y1="140.0" x2="720.0" y2="140.0" stroke="#3d3d3a" stroke-width="1.6"/>
+<line x1="720.0" y1="140.0" x2="780" y2="140.0" stroke="#3d3d3a" stroke-width="1.6"/>
+<text x="668" y="132.0" font-size="15" font-weight="600" fill="#3d3d3a">1</text>
+<text x="772" y="132.0" font-size="15" font-weight="600" fill="#3d3d3a" text-anchor="end">n</text>
+<text x="720.0" y="162.0" font-size="13" fill="#73726c" text-anchor="middle" font-style="italic">sadrži</text>
+<line x1="1030" y1="140.0" x2="1090.0" y2="140.0" stroke="#3d3d3a" stroke-width="1.6"/>
+<line x1="1090.0" y1="140.0" x2="1150" y2="140.0" stroke="#3d3d3a" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="1038" y="132.0" font-size="15" font-weight="600" fill="#3d3d3a">n</text>
+<text x="1142" y="132.0" font-size="15" font-weight="600" fill="#3d3d3a" text-anchor="end">1</text>
+<text x="1090.0" y="162.0" font-size="13" fill="#73726c" text-anchor="middle" font-style="italic">naručeno kao</text>
+<rect x="40" y="70" width="250" height="116" rx="8" fill="#ffffff" stroke="#534AB7" stroke-width="1.2"/>
+<path d="M40 78 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="165.0" y="92.0" font-size="15" font-weight="600" fill="#3C3489" text-anchor="middle">Tables</text>
+<text x="54" y="121.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="70" y="121.0" font-size="14" fill="#3d3d3a" font-weight="600">Id</text>
+<text x="175" y="121.0" font-size="12" fill="#73726c">integer</text>
+<rect x="246" y="108" width="34" height="16" rx="4" fill="#FAEEDA"/>
+<text x="263" y="120.0" font-size="11" font-weight="600" fill="#633806" text-anchor="middle">PK</text>
+<rect x="41" y="128" width="248" height="24" fill="#F7F6F2"/>
+<text x="54" y="145.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="70" y="145.0" font-size="14" fill="#3d3d3a">Number</text>
+<text x="175" y="145.0" font-size="12" fill="#73726c">integer</text>
+<rect x="246" y="132" width="34" height="16" rx="4" fill="#F1EFE8"/>
+<text x="263" y="144.0" font-size="11" font-weight="600" fill="#444441" text-anchor="middle">UK</text>
+<text x="54" y="169.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="70" y="169.0" font-size="14" fill="#3d3d3a">Seats</text>
+<text x="175" y="169.0" font-size="12" fill="#73726c">integer</text>
+<rect x="410" y="70" width="250" height="164" rx="8" fill="#ffffff" stroke="#534AB7" stroke-width="1.2"/>
+<path d="M410 78 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="535.0" y="92.0" font-size="15" font-weight="600" fill="#3C3489" text-anchor="middle">Orders</text>
+<text x="424" y="121.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="440" y="121.0" font-size="14" fill="#3d3d3a" font-weight="600">Id</text>
+<text x="545" y="121.0" font-size="12" fill="#73726c">integer</text>
+<rect x="616" y="108" width="34" height="16" rx="4" fill="#FAEEDA"/>
+<text x="633" y="120.0" font-size="11" font-weight="600" fill="#633806" text-anchor="middle">PK</text>
+<rect x="411" y="128" width="248" height="24" fill="#F7F6F2"/>
+<text x="424" y="145.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="440" y="145.0" font-size="14" fill="#3d3d3a">TableId</text>
+<text x="545" y="145.0" font-size="12" fill="#73726c">integer</text>
+<rect x="616" y="132" width="34" height="16" rx="4" fill="#E1F5EE"/>
+<text x="633" y="144.0" font-size="11" font-weight="600" fill="#085041" text-anchor="middle">FK</text>
+<text x="424" y="169.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="440" y="169.0" font-size="14" fill="#3d3d3a">Status</text>
+<text x="545" y="169.0" font-size="12" fill="#73726c">integer</text>
+<rect x="411" y="176" width="248" height="24" fill="#F7F6F2"/>
+<text x="424" y="193.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="440" y="193.0" font-size="14" fill="#3d3d3a">CreatedAt</text>
+<text x="545" y="193.0" font-size="12" fill="#73726c">timestamptz</text>
+<text x="424" y="217.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="440" y="217.0" font-size="14" fill="#3d3d3a">UpdatedAt</text>
+<text x="545" y="217.0" font-size="12" fill="#73726c">timestamptz</text>
+<rect x="780" y="70" width="250" height="212" rx="8" fill="#ffffff" stroke="#534AB7" stroke-width="1.2"/>
+<path d="M780 78 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="905.0" y="92.0" font-size="15" font-weight="600" fill="#3C3489" text-anchor="middle">OrderItems</text>
+<text x="794" y="121.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="810" y="121.0" font-size="14" fill="#3d3d3a" font-weight="600">Id</text>
+<text x="915" y="121.0" font-size="12" fill="#73726c">integer</text>
+<rect x="986" y="108" width="34" height="16" rx="4" fill="#FAEEDA"/>
+<text x="1003" y="120.0" font-size="11" font-weight="600" fill="#633806" text-anchor="middle">PK</text>
+<rect x="781" y="128" width="248" height="24" fill="#F7F6F2"/>
+<text x="794" y="145.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="810" y="145.0" font-size="14" fill="#3d3d3a">OrderId</text>
+<text x="915" y="145.0" font-size="12" fill="#73726c">integer</text>
+<rect x="986" y="132" width="34" height="16" rx="4" fill="#E1F5EE"/>
+<text x="1003" y="144.0" font-size="11" font-weight="600" fill="#085041" text-anchor="middle">FK</text>
+<text x="794" y="169.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="810" y="169.0" font-size="14" fill="#3d3d3a">MenuItemId</text>
+<text x="915" y="169.0" font-size="12" fill="#73726c">integer</text>
+<rect x="986" y="156" width="34" height="16" rx="4" fill="#E1F5EE"/>
+<text x="1003" y="168.0" font-size="11" font-weight="600" fill="#085041" text-anchor="middle">FK</text>
+<rect x="781" y="176" width="248" height="24" fill="#F7F6F2"/>
+<text x="794" y="193.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="810" y="193.0" font-size="14" fill="#3d3d3a">Name</text>
+<text x="915" y="193.0" font-size="12" fill="#73726c">text</text>
+<text x="794" y="217.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="810" y="217.0" font-size="14" fill="#3d3d3a">UnitPrice</text>
+<text x="915" y="217.0" font-size="12" fill="#73726c">numeric</text>
+<rect x="781" y="224" width="248" height="24" fill="#F7F6F2"/>
+<text x="794" y="241.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="810" y="241.0" font-size="14" fill="#3d3d3a">Quantity</text>
+<text x="915" y="241.0" font-size="12" fill="#73726c">integer</text>
+<text x="794" y="265.0" font-size="14" font-weight="600" fill="#3d3d3a">o</text>
+<text x="810" y="265.0" font-size="14" fill="#3d3d3a">Note</text>
+<text x="915" y="265.0" font-size="12" fill="#73726c">text</text>
+<rect x="1150" y="70" width="250" height="164" rx="8" fill="#ffffff" stroke="#534AB7" stroke-width="1.2"/>
+<path d="M1150 78 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="1275.0" y="92.0" font-size="15" font-weight="600" fill="#3C3489" text-anchor="middle">MenuItems</text>
+<text x="1164" y="121.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="1180" y="121.0" font-size="14" fill="#3d3d3a" font-weight="600">Id</text>
+<text x="1285" y="121.0" font-size="12" fill="#73726c">integer</text>
+<rect x="1356" y="108" width="34" height="16" rx="4" fill="#FAEEDA"/>
+<text x="1373" y="120.0" font-size="11" font-weight="600" fill="#633806" text-anchor="middle">PK</text>
+<rect x="1151" y="128" width="248" height="24" fill="#F7F6F2"/>
+<text x="1164" y="145.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="1180" y="145.0" font-size="14" fill="#3d3d3a">Name</text>
+<text x="1285" y="145.0" font-size="12" fill="#73726c">text</text>
+<text x="1164" y="169.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="1180" y="169.0" font-size="14" fill="#3d3d3a">Price</text>
+<text x="1285" y="169.0" font-size="12" fill="#73726c">numeric</text>
+<rect x="1151" y="176" width="248" height="24" fill="#F7F6F2"/>
+<text x="1164" y="193.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="1180" y="193.0" font-size="14" fill="#3d3d3a">Category</text>
+<text x="1285" y="193.0" font-size="12" fill="#73726c">text</text>
+<text x="1164" y="217.0" font-size="14" font-weight="600" fill="#3d3d3a">*</text>
+<text x="1180" y="217.0" font-size="14" fill="#3d3d3a">IsAvailable</text>
+<text x="1285" y="217.0" font-size="12" fill="#73726c">boolean</text>
+<line x1="40" y1="312" x2="1400" y2="312" stroke="#D3D1C7" stroke-width="1"/>
+<text x="40" y="336" font-size="15" font-weight="600" fill="#3d3d3a">Legenda</text>
+<line x1="40" y1="362" x2="90" y2="362" stroke="#3d3d3a" stroke-width="1.6"/>
+<text x="104" y="366" font-size="13" fill="#3d3d3a">puna crta uz entitet: mora sudjelovati (barem jedan)</text>
+<line x1="40" y1="390" x2="90" y2="390" stroke="#3d3d3a" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="104" y="394" font-size="13" fill="#3d3d3a">isprekidana crta uz entitet: može i nula</text>
+<text x="65" y="422" font-size="14" font-weight="600" fill="#3d3d3a" text-anchor="middle">1 / n</text>
+<text x="104" y="422" font-size="13" fill="#3d3d3a">1 uz entitet: jedan,   n uz entitet: više</text>
+<text x="65" y="450" font-size="14" fill="#73726c" text-anchor="middle">-</text>
+<text x="104" y="450" font-size="13" fill="#3d3d3a">dio crte uz entitet govori o tom entitetu</text>
+<text x="617" y="366" font-size="15" font-weight="600" fill="#3d3d3a" text-anchor="middle">*</text>
+<text x="650" y="366" font-size="13" fill="#3d3d3a">obavezan podatak (NOT NULL)</text>
+<text x="617" y="394" font-size="15" font-weight="600" fill="#3d3d3a" text-anchor="middle">o</text>
+<text x="650" y="394" font-size="13" fill="#3d3d3a">može biti NULL</text>
+<rect x="600" y="407" width="34" height="18" rx="4" fill="#FAEEDA"/>
+<text x="617" y="420" font-size="11" font-weight="600" fill="#633806" text-anchor="middle">PK</text>
+<text x="650" y="422" font-size="13" fill="#3d3d3a">primarni ključ</text>
+<rect x="600" y="435" width="34" height="18" rx="4" fill="#E1F5EE"/>
+<text x="617" y="448" font-size="11" font-weight="600" fill="#085041" text-anchor="middle">FK</text>
+<text x="650" y="450" font-size="13" fill="#3d3d3a">strani ključ</text>
+<rect x="600" y="463" width="34" height="18" rx="4" fill="#F1EFE8"/>
+<text x="617" y="476" font-size="11" font-weight="600" fill="#444441" text-anchor="middle">UK</text>
+<text x="650" y="478" font-size="13" fill="#3d3d3a">jedinstvena vrijednost (unique)</text>
+<text x="40" y="522" font-size="13" fill="#73726c">Primjer čitanja (Tables - Orders): svaka narudžba mora imati točno jedan stol; stol može imati nula ili više narudžbi.</text>
+<text x="40" y="544" font-size="13" fill="#73726c">Narudžba mora imati barem jednu stavku: to pravilo provodi API (validacija [MinLength(1)]), a ne sama baza.</text>
+<text x="40" y="566" font-size="13" fill="#73726c">Brisanje: Orders -&gt; OrderItems CASCADE; Tables -&gt; Orders i MenuItems -&gt; OrderItems RESTRICT. Name i UnitPrice u OrderItems su snapshot.</text>
+</svg>
