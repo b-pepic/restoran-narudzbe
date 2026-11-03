@@ -18,7 +18,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<OrderResponse>>> GetAll(OrderStatus? status)
+    public async Task<ActionResult<IEnumerable<OrderResponse>>> GetAll(OrderStatus? status, int? tableNumber)
     {
         IQueryable<Order> query = _db.Orders
             .Include(x => x.Table)
@@ -27,6 +27,11 @@ public class OrdersController : ControllerBase
         if (status is not null)
         {
             query = query.Where(x => x.Status == status);
+        }
+
+        if (tableNumber is not null)
+        {
+            query = query.Where(x => x.Table.Number == tableNumber);
         }
 
         query = query.OrderBy(x => x.CreatedAt);
