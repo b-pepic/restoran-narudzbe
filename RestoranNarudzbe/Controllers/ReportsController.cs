@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestoranNarudzbe.Data;
 using RestoranNarudzbe.Dtos;
@@ -30,5 +31,24 @@ public class ReportsController : ControllerBase
             .ToListAsync();
 
         return Ok(totals);
+    }
+
+    [HttpGet("top-menu-items")]
+    public async Task<ActionResult<IEnumerable<TopMenuItemResponse>>> GetTopMenuItems([Range(1, 50)] int count = 5)
+    {
+        var topMenuItems = await _db.OrderItems
+            .GroupBy(item => new { item.MenuItemId, item.MenuItem.Name })
+            .Select(group => new TopMenuItemResponse
+            {
+                MenuItemId = group.Key.MenuItemId,
+                Name = group.Key.Name,
+                QuantitySold = group.Sum(item => item.Quantity)
+            })
+            .OrderByDescending(itemResponse => itemResponse.QuantitySold)
+            .ThenBy(itemResponse => itemResponse.Name)
+            .Take(count)
+            .ToListAsync();
+
+        return Ok(topMenuItems);
     }
 }
