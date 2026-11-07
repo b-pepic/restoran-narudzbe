@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="RestoranNarudzbe.Tests/RestoranNarudzbe.Tests.csproj" Id="e5ef0e17-c49f-42ba-9368-befb89b1a9be" />
   <Project Path="RestoranNarudzbe/RestoranNarudzbe.csproj" />
 </Solution>
