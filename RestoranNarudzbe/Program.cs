@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using RestoranNarudzbe.Data;
+using RestoranNarudzbe.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
         .UseSnakeCaseNamingConvention()
         .UseSeeding(SeedData.Seed));
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
