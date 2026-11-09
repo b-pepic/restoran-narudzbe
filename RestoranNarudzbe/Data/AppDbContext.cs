@@ -30,6 +30,10 @@ public class AppDbContext : DbContext
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Order>()
+            .Property(x => x.Version)
+            .IsRowVersion();
+
         modelBuilder.Entity<Table>()
             .HasIndex(x => x.Number)
             .IsUnique();

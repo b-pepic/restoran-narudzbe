@@ -3,5 +3,6 @@
 public enum OrderError
 {
     NotFound,
-    Invalid
+    Invalid,
+    Conflict
 }

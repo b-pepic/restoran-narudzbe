@@ -123,8 +123,16 @@ public class OrderService : IOrderService
 
         order.Status = newStatus;
         order.UpdatedAt = DateTime.UtcNow;
-        await _db.SaveChangesAsync();
 
+        try
+        {
+            await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return OrderResult.Failure(OrderError.Conflict, $"Order {id} was changed by someone else. Reload it and try again.");
+        }
+        
         return OrderResult.Success(OrderResponse.FromOrder(order));
     }
 }

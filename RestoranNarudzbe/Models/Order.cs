@@ -8,7 +8,9 @@ public class Order
     public OrderStatus Status { get; set; } = OrderStatus.New;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public uint Version { get; set; }
     public List<OrderItem> Items { get; set; } = new();
+
     public decimal TotalPrice
     {
         get { return Items.Sum(x => x.TotalPrice); }

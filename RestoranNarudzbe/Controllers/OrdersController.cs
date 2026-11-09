@@ -57,6 +57,11 @@ public class OrdersController : ControllerBase
             {
                 return ValidationProblem(detail: result.ErrorMessage);
             }
+
+            if (result.Error == OrderError.Conflict)
+            {
+                return Problem(detail: result.ErrorMessage, statusCode: StatusCodes.Status409Conflict);
+            }
         }
 
         return Ok(result.Order);
