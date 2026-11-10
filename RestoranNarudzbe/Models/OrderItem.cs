@@ -11,6 +11,7 @@ public class OrderItem
     public decimal UnitPrice { get; set; }
     public int Quantity { get; set; }
     public string? Note { get; set; }
+
     public decimal TotalPrice
     {
         get { return Quantity * UnitPrice; }

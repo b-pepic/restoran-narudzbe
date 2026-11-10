@@ -118,7 +118,8 @@ public class OrderService : IOrderService
 
         if (!OrderStatusRules.CanChange(order.Status, newStatus))
         {
-            return OrderResult.Failure(OrderError.Invalid, $"Cannot change status from {order.Status} to {newStatus}.");
+            return OrderResult.Failure(OrderError.Invalid,
+                $"Cannot change status from {order.Status} to {newStatus}.");
         }
 
         order.Status = newStatus;
@@ -132,7 +133,7 @@ public class OrderService : IOrderService
         {
             return OrderResult.Failure(OrderError.Conflict, $"Order {id} was changed by someone else. Reload it and try again.");
         }
-        
+
         return OrderResult.Success(OrderResponse.FromOrder(order));
     }
 }
